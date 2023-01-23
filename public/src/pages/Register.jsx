@@ -29,16 +29,12 @@ function Register() {
   async function handleSubmit(event) {
     event.preventDefault();
     if (handleValidation()) {
-      console.log("in validation");
-      // call api
       const { username, email, password } = values;
       const { data } = await axios.post(registerRoute, {
         username,
         email,
         password,
       });
-
-      console.log(data);
 
       if (data.status === false) {
         toast.error(data.message, toastConfig);
