@@ -22,7 +22,7 @@ export const register = async (req, res, next) => {
 
         const userCopy = user.toObject();
         delete userCopy['password'];
-        return res.json({ status: true, userCopy });
+        return res.json({ status: true, user: userCopy });
     } catch (error) {
         next(error);
     }
@@ -48,7 +48,28 @@ export const login = async (req, res, next) => {
 
         const userCopy = user.toObject();
         delete userCopy['password'];
-        return res.json({ status: true, userCopy });
+        return res.json({ status: true, user: userCopy });
+    } catch (error) {
+        next(error);
+    }
+
+};
+
+export const setAvatar = async (req, res, next) => {
+    try{
+        const userId = req.params.id;
+        const avatarImage = req.body.image;
+
+        const user = await userModel.findByIdAndUpdate(userId, {
+            isAvatarSet: true,
+            avatar:avatarImage,
+        });
+
+        return res.json({
+            isSet: user.isAvatarSet, 
+            image: user.avatar,
+        });
+
     } catch (error) {
         next(error);
     }
