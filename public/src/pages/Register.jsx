@@ -47,7 +47,6 @@ function Register() {
       }
 
       if (data.status === true) {
-        console.log(data.user);
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
         navigate("/");
       }
