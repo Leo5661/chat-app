@@ -6,6 +6,8 @@ const Color = {
     buttonBgColor: "#997af0",
     onButtonHover: "#4e0eff",
     formLinkColor: "#4e0eff",
+    avatarBackground: "#131324",
+    selectedAvatar: "#4e0eff",
 }
 
 export default Color;

@@ -24,6 +24,12 @@ function Login() {
     theme: "dark",
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
+    }
+  }, []);
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (handleValidation()) {
