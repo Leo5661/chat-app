@@ -151,7 +151,7 @@ const FormBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background-color: ${Colors.formBgColor};
+    background-color: ${Colors.lightBgColor};
     border-radius: 2rem;
     padding: 3rem 5rem;
 

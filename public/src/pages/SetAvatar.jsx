@@ -112,7 +112,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 3rem;
-  background-color: ${Colors.avatarBackground};
+  background-color: ${Colors.backgroundColor};
   height: 100vh;
   width: 100vw;
   .loader {
