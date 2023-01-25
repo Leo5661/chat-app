@@ -75,3 +75,25 @@ export const setAvatar = async (req, res, next) => {
     }
 
 };
+
+
+// to add friend
+export const addFriends = async (req, res, next) => {
+
+}
+
+export const getAllUsers = async(req, res, next) => {
+    try {
+        const users = await userModel.find({ _id: { $ne: req.params.id } }).select([
+            "_id",
+            "email",
+            "username",
+            "avatar",
+        ]);
+
+        return res.json({users: users});
+    } catch (error) {
+        next(error);
+    }
+};
+

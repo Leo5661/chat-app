@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { login, register, setAvatar } from "../controllers/usersController.js";
+import { getAllUsers, login, register, setAvatar } from "../controllers/usersController.js";
 
-const router = Router();
+const userRouter = Router();
 
-router.post('/register', register);
-router.post('/login', login);
-router.post('/setAvatar/:id', setAvatar);
+userRouter.get('/allUsers/:id', getAllUsers);
+userRouter.post('/register', register);
+userRouter.post('/login', login);
+userRouter.post('/setAvatar/:id', setAvatar);
 
-export default router;
+export default userRouter;
