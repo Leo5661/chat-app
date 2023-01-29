@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/userRoutes.js";
+import { Server } from "socket.io";
 import messageRouter from "./routes/messagesRoutes.js";
 
 dotenv.config();
@@ -15,7 +16,7 @@ database.on('error', (error) => {
 })
 
 database.once('connected', () => {
-    console.log("Database connected");
+    console.log("Database connected"); 
 })
 
 const app = express();
@@ -26,6 +27,30 @@ app.use(json());
 app.use('/api/auth', userRouter);
 app.use('/api/msg', messageRouter);
 
-app.listen(process.env.PORT, () => {
+
+const server = app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`)
+})
+
+const io = new Server(server,{
+    cors: {
+        origin: "http://localhost:5173",
+        credentials: true,
+    }
+})
+
+global.onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+    global.chatSocket = socket;
+    socket.on("add-user", (userId) => {
+        onlineUsers.set(userId, socket.id);
+    })
+
+    socket.on("send-msg", (data) => {
+        const sendUserSocket = onlineUsers.get(data.to);
+        if(sendUserSocket){
+            socket.to(sendUserSocket).emit("msg-recieve", data.message)
+        }
+    })
 })
