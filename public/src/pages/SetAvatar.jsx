@@ -41,7 +41,6 @@ function SetAvatar() {
       if (data.isSet) {
         user.isAvatarSet = true;
         user.avatar = data.image;
-
         localStorage.setItem("chat-app-user", JSON.stringify(user));
         navigate("/");
       } else {
@@ -142,7 +141,7 @@ const Container = styled.div`
       }
     }
     .selected {
-      border: 0.4rem solid ${Colors.selectedAvatar};
+      border: 0.4rem solid ${Colors.blue};
     }
   }
 

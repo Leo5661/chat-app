@@ -10,7 +10,6 @@ function Contacts({ contacts, currentUser, onChatChange }) {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(contacts);
       setCurrentUserName(currentUser.username);
       setCurrentUserImage(currentUser.avatar);
     }

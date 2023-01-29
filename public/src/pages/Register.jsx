@@ -158,7 +158,7 @@ const FormBox = styled.div`
     input {
       background-color: transparent;
       padding: 1rem;
-      border: 0.1rem solid ${Colors.inputBorder};
+      border: 0.1rem solid ${Colors.blue};
       border-radius: 0.4rem;
       color: white;
       width: 100%;
@@ -181,7 +181,7 @@ const FormBox = styled.div`
     text-transform: uppercas;
     transition: 0.5s ease-in-out;
     &:hover {
-      background-color: ${Colors.onButtonHover};
+      background-color: ${Colors.blue};
     }
   }
   span {
@@ -193,7 +193,7 @@ const FormBox = styled.div`
     gap: 1rem;
     align-items: center;
     a {
-      color: ${Colors.formLinkColor};
+      color: ${Colors.blue};
       text-decoration: none;
       font-weight: bold;
     }
