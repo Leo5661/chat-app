@@ -21,6 +21,7 @@ const Color = {
     messageContentColor: "#d1d1d1",
     messageContentSendBGColor: "#4f04ff21",
     messageContentRecievedBGColor: "#9900ff20",
+    scrollColor: "#ffffff39",
 }
 
 export default Color;

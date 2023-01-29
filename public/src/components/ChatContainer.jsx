@@ -1,16 +1,19 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Colors from "../assets/Colors";
 import { getMessageRoute, sendMessageRoute } from "../utils/ApiRoutes";
 import ChatInput from "./ChatInput";
-import ChatMessages from "./ChatMessages";
+import { v4 as uuidv4 } from "uuid";
 import Logout from "./Logout";
 
-export default function ChatContainer({ currentChat, currentUser }) {
+export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [messages, setMessages] = useState([]);
+  const [arrivalMessage, setArivalMessage] = useState(null);
+
+  const scrollRef = useRef();
 
   useEffect(() => {
     async function fetchChat() {
@@ -35,13 +38,41 @@ export default function ChatContainer({ currentChat, currentUser }) {
       to: currentChat._id,
       message: message,
     });
+
+    socket.current.emit("send-msg", {
+      to: currentChat._id,
+      from: currentUser._id,
+      message: message,
+    });
+
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: message });
+    setMessages(msgs);
   };
+
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-recieve", (message) => {
+        setArivalMessage({ fromSelf: false, message: message });
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [messages]);
 
   return (
     <Container>
       <div className="chat-header">
         <div className="user-details">
-          <div className="avatar">
+          <div
+            className={`avatar ${currentUserImage === "" ? "no_avatar" : ""}`}
+          >
             <img
               src={`data:image/svg+xml;base64,${currentUserImage}`}
               alt="avatar"
@@ -56,7 +87,7 @@ export default function ChatContainer({ currentChat, currentUser }) {
       <div className="chat-messages">
         {messages.map((message) => {
           return (
-            <div>
+            <div ref={scrollRef} key={uuidv4()}>
               <div
                 className={`message ${
                   message.fromSelf ? "sended" : "recieved"
@@ -98,6 +129,9 @@ const Container = styled.div`
           height: 3rem;
         }
       }
+      .no_avatar {
+        display: none;
+      }
       .username {
         h3 {
           color: white;
@@ -111,6 +145,14 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    &::-webkit-scrollbar {
+      width: 0.2rem;
+      &-thumb {
+        background-color: ${Colors.scrollColor};
+        width: 0.1rem;
+        border-radius: 1rem;
+      }
+    }
     .message {
       display: flex;
       align-items: center;

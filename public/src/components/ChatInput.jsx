@@ -65,6 +65,10 @@ const Container = styled.div`
   background-color: ${Colors.contactBg};
   padding: 0 2rem;
   padding-bottom: 0.3rem;
+  @media screen and (min-width: 720) and (max-width: 1080) {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
   .button-container {
     padding-top: 0.3rem;
     display: flex;
@@ -135,6 +139,12 @@ const Container = styled.div`
       align-items: center;
       border: none;
       background-color: ${Colors.sendButtonColor};
+      @media screen and (min-width: 720) and (max-width: 1080) {
+        padding: 0.3rem 1rem;
+        svg {
+          font-size: 1rem;
+        }
+      }
       svg {
         font-size: 2rem;
         color: white;
