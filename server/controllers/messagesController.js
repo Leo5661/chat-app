@@ -33,7 +33,7 @@ export const getAllMessage = async (req, res, next) => {
 
         const mesList = messages.map((msg) => {
             return {
-                fromSelf: msg.sender.toString === from,
+                fromSelf: msg.sender.equals(from),
                 message: msg.message.text,
             };
         });
