@@ -1,0 +1,27 @@
+const Color = {
+    backgroundColor: "#131324",
+    lightBgColor: "#00000076",
+    onFocusInputBorder: "#997af0",
+    buttonBgColor: "#997af0",
+    contactBg: "#080420",
+    contactBg2: "#ffffff39",
+    selectedContactBg: "#9186f3",
+    currentUserBg: "#0d0d30",
+    blue: "#4e0eff",
+    logoutBtnColor: "#9a86f3",
+    logoutSvgColor: "#ebe7ff",
+    emojiSVGColor: "#ffff00c8",
+    messageInputBg: "#ffffff34",
+    sendButtonColor: "#9a86f3",
+    emojiPickerBg: "#080420",
+    emojiPickerShadow: "#9a86f3",
+    emojiPickerBorder: "#9186f3",
+    emojiPickerGroupBg: "#080420",
+    emojiPickerScroll: "#080420",
+    messageContentColor: "#d1d1d1",
+    messageContentSendBGColor: "#4f04ff21",
+    messageContentRecievedBGColor: "#9900ff20",
+    scrollColor: "#ffffff39",
+}
+
+export default Color;
